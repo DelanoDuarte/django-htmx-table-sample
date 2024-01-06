@@ -1,0 +1,47 @@
+{% extends "layout/base.html" %} {% block content %}
+<h2>TestFlight</h2>
+
+<hr />
+<img
+  id="loader"
+  class="indicator"
+  src="/static/assets/svg/circles_loader.svg"
+/>
+
+<!--
+<div id="loader" class="indicator">Loading...</div>
+
+-->
+
+<div x-data="{ openResults: false }">
+  <form>
+    <button
+      class="btn btn-primary"
+      type="button"
+      hx-get="/testflight/users"
+      hx-trigger="click"
+      hx-target="#result"
+      hx-indicator="#loader"
+      @click="openResults = true"
+    >
+      Load Results
+    </button>
+    <button
+      x-show="openResults"
+      class="btn btn-warning"
+      type="button"
+      @click="openResults = false"
+    >
+      Clear Results
+    </button>
+  </form>
+
+  <br />
+
+  <div class="card" x-show="openResults">
+    <div class="card-body">
+      <div id="result"></div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

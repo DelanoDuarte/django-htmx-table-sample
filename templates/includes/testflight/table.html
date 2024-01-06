@@ -1,0 +1,64 @@
+<div id="table_users">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Sex</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.sex}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form>
+    <ul class="pagination justify-content-end">
+      <span class="step-links">
+        {% if users.has_previous %}
+        <a
+          hx-get="users?page=1"
+          href="#"
+          hx-target="#table_users"
+          hx-indicator="#loader"
+          >&laquo; first</a
+        >
+        <a
+          hx-get="users?page={{ users.previous_page_number }}"
+          href="#"
+          hx-target="#table_users"
+          hx-indicator="#loader"
+          >previous</a
+        >
+        {% endif %}
+
+        <span class="current">
+          Page {{ users.number }} of {{ users.paginator.num_pages }}.
+        </span>
+
+        {% if users.has_next %}
+        <a
+          hx-get="users?page={{ users.next_page_number }}"
+          href="#"
+          hx-target="#table_users"
+          hx-indicator="#loader"
+          >next</a
+        >
+        <a
+          hx-get="users?page={{ users.paginator.num_pages }}"
+          href="#"
+          hx-target="#table_users"
+          hx-indicator="#loader"
+          >last &raquo;</a
+        >
+        {% endif %}
+      </span>
+    </ul>
+  </form>
+</div>
